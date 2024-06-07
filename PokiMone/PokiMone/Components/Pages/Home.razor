@@ -2,6 +2,40 @@
 
 <PageTitle>PokiMone</PageTitle>
 
-<h1>There are 151 Pokemon</h1>
+<h1 class="pokemon-page-title">There are 151 Pokemon</h1>
 
-number
+<table id="pokemonCards">
+    <tr class="pokemonCardRow">
+        @for(int i = 0; i < 30; i++)
+        {
+            <td class="pokemon-card">
+                <div class="card-header">
+                    <span class="number">001</span>
+                    <span class="card-title">Bulbasaur</span>
+                </div>
+                <div class="card-image">
+                    <img src="images/bulbasaur.jpg" alt="Bulbasaur">
+                </div>
+                <div class="card-details">
+                    <div class="Stats">
+                        <span class="overall">Overall</span>
+                        <span class="attack-damage">320</span>
+                    </div>
+                    <div class="card-footer">
+                        @foreach (var type in types)
+                        {
+                            <spanclass ="type">@type</spanclass>
+                        }
+                    </div>
+                </div>
+            </td>
+        }
+    </tr>
+</table>
+
+
+
+@code {
+
+    public List<string> types = ["grass"];
+}
