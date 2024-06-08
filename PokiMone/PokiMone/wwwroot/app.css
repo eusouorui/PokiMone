@@ -95,7 +95,7 @@ body {
 .number {
     font-size: 14px;
     font-weight: bold;
-    color: #e60000;
+    color: black;
 }
 
 .card-image {
@@ -142,4 +142,5 @@ body {
     font-size: 12px;
     color: black;
     font-weight: 600;
+    padding-inline: 4em;
 }
