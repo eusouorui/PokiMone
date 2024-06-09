@@ -1,4 +1,11 @@
 ﻿@page "/"
+@using PokeApiNet
+@using PokiMone.ExternalResources;
+
+@code
+{
+   
+}
 
 <PageTitle>PokiMone</PageTitle>
 
@@ -6,29 +13,31 @@
 
 <table id="pokemonCards">
     <tr class="pokemonCardRow">
-        @for(int i = 0; i < 30; i++)
+        @if (PokemonList?.Any() == true)
         {
-            <td class="pokemon-card">
-                <div class="card-header">
-                    <span class="number">001</span>
-                    <span class="card-title">Bulbasaur</span>
-                </div>
-                <div class="card-image">
-                    <img src="images/bulbasaur.jpg" alt="Bulbasaur">
-                </div>
-                <div class="card-details">
-                    <div class="Stats">
-                        <span class="total">Total Points</span>
-                        <span class="attack-damage">320</span>
+            @foreach(var Pokemon in PokemonList)
+            {
+                <td class="pokemon-card">
+                    <div class="card-header">
+                        <span class="number">@Pokemon.Id</span>
+                        <span class="card-title">@Pokemon.Name</span>
                     </div>
-                    <div class="card-footer">
-                        @foreach (var type in types)
-                        {
-                            <spanclass ="type">@type</spanclass>
-                        }
+                    <div class="card-image">
+                        <img src="@($"images/{Pokemon.Name}.png")" alt="Bulbasaur">
                     </div>
-                </div>
-            </td>
+                    <div class="card-details">
+                        <div class="Stats">
+                            <span class="total">@Pokemon.Stats.Sum(s => s.BaseStat)</span>
+                        </div>
+                        <div class="card-footer">
+                            @foreach (var type in Pokemon.Types)
+                            {
+                                <spanclass ="type">@type.Type.Name</spanclass>
+                            }
+                        </div>
+                    </div>
+                </td>
+            }
         }
     </tr>
 </table>
@@ -36,5 +45,22 @@
 
 
 @code {
-    public List<string> types = ["grass", "posion"];
+
+    public PokeApiData apiLayer = new PokeApiData();
+
+    public List<Pokemon>? PokemonList;
+
+    public int TotalPokemon = 151;
+
+    public async Task<List<Pokemon>> GetPokemon()
+    {
+        var pokemonList = await apiLayer.GetPokemonRange();
+
+        return pokemonList;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        PokemonList = await GetPokemon();
+    }
 }
