@@ -1,14 +1,44 @@
-﻿@page "/"
+﻿@page "/detail/{pokemonName}"
 @using PokeApiNet
 @using PokiMone.ExternalResources;
 
 
 
-<PageTitle>pokemon name</PageTitle>
+<PageTitle>@pokemon.Name</PageTitle>
 
+<h3></h3>
+
+<div class="pokemon-card">
+    <div class="pokemon-header">
+        <h3>@(@pokemon.Name) - <span class="pokemon-id">#@pokemon.Id</span></h3>
+    </div>
+
+    <div class="pokemon-body">
+        <img src="@($"images/{pokemon.Name}.png")" alt="@@pokemon.Name" class="pokemon-image" />
+
+        <div class="pokemon-info">
+            <p><strong>Height:</strong> @pokemon.Height</p>
+            <p><strong>Weight:</strong> @pokemon.Weight</p>
+            <ul><strong>Types:</strong>
+            @foreach (var type in pokemon.Types)
+            {
+                <li>@(type.Type.Name)</li>
+            }
+            </ul>
+        </div>
+    </div>
+</div>
 
 
 @code
 {
-    Pokemon pokemon;
+    [Parameter]
+    public string pokemonName { get; set; }
+    public PokeApiData apiLayer = new PokeApiData();
+    public Pokemon pokemon;
+
+    protected override async Task OnInitializedAsync()
+    {
+        pokemon = await apiLayer.GetPokemonDataAsync(pokemonName);
+    }
 }

@@ -1,11 +1,7 @@
 ﻿@page "/"
+@using Microsoft.AspNetCore.Mvc
 @using PokeApiNet
 @using PokiMone.ExternalResources;
-
-@code
-{
-   
-}
 
 <PageTitle>PokiMone</PageTitle>
 
@@ -19,8 +15,8 @@
             {
                 <td class="pokemon-card">
                     <div class="card-header">
-                        <span class="number"><a href="">@Pokemon.Id</a></span>
-                        <span class="card-title">@Pokemon.Name</span>
+                        <span class="number">@Pokemon.Id</span>
+                        <span class="card-title"><a href="@($"/detail/{Pokemon.Name}")">@Pokemon.Name</a></span>
                     </div>
                     <div class="card-image">
                         <img src="@($"images/{Pokemon.Name}.png")" alt="Bulbasaur">
