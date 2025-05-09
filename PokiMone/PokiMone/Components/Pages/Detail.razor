@@ -17,8 +17,8 @@
         <img src="@($"images/{pokemon.Name}.png")" alt="@@pokemon.Name" class="pokemon-image" />
 
         <div class="pokemon-info">
-            <p><strong>Height:</strong> @pokemon.Height</p>
-            <p><strong>Weight:</strong> @pokemon.Weight</p>
+            <p><strong>Height:</strong> @(pokemon.Height*10) cm</p> <!-- Their base unit is in decimeters so we convert to cm-->
+            <p><strong>Weight:</strong> @((float)pokemon.Weight / 10) kg</p> <!-- Their base unit is in hectograms so we convert to kg-->
             <ul><strong>Types:</strong>
             @foreach (var type in pokemon.Types)
             {
@@ -28,7 +28,6 @@
         </div>
     </div>
 </div>
-
 
 @code
 {
@@ -42,3 +41,14 @@
         pokemon = await apiLayer.GetPokemonDataAsync(pokemonName);
     }
 }
+
+<style>
+.pokemon-card {
+    max-width: 400px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 1rem;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+</style>

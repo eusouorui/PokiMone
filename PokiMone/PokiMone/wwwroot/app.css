@@ -92,6 +92,31 @@ body {
     font-weight: bold;
 }
 
+.pokemon-header {
+    text-align: center;
+}
+
+.pokemon-id {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.pokemon-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pokemon-image {
+    width: 150px;
+    height: auto;
+}
+
+.pokemon-info {
+    margin-top: 1rem;
+    width: 100%;
+}
+
 .number {
     font-size: 14px;
     font-weight: bold;
