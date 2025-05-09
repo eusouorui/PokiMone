@@ -19,7 +19,7 @@
             {
                 <td class="pokemon-card">
                     <div class="card-header">
-                        <span class="number">@Pokemon.Id</span>
+                        <span class="number"><a href="">@Pokemon.Id</a></span>
                         <span class="card-title">@Pokemon.Name</span>
                     </div>
                     <div class="card-image">
@@ -52,7 +52,7 @@
 
     public int TotalPokemon = 151;
 
-    public async Task<List<Pokemon>> GetPokemon()
+    public async Task<List<Pokemon>> GetPokemonList()
     {
         var pokemonList = await apiLayer.GetPokemonRange();
 
@@ -61,6 +61,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-        PokemonList = await GetPokemon();
+        PokemonList = await GetPokemonList();
     }
 }
