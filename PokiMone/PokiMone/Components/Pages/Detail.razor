@@ -19,12 +19,52 @@
         <div class="pokemon-info">
             <p><strong>Height:</strong> @(pokemon.Height*10) cm</p> <!-- Their base unit is in decimeters so we convert to cm-->
             <p><strong>Weight:</strong> @((float)pokemon.Weight / 10) kg</p> <!-- Their base unit is in hectograms so we convert to kg-->
-            <ul><strong>Types:</strong>
+            <strong>Types:</strong><br><br>
             @foreach (var type in pokemon.Types)
             {
-                <li>@(type.Type.Name)</li>
+                <p><span class="@("type-badge "+type.Type.Name)">@(type.Type.Name)</span></p>
             }
-            </ul>
+            <div class="moves-section">
+                <ul class="move-list">
+                    Stats:
+                    @foreach (var stat in pokemon.Stats)
+                    {
+                        <li class="move-list">@(stat.Stat.Name) -> <span><strong>@(stat.BaseStat)</strong></span></li>
+                    }
+                </ul>
+            </div>
+            <div class="moves-section">
+                <ul class="move-list">
+                    Abilities:
+                    @foreach (var ability in pokemon.Abilities)
+                    {
+                        <li class="move-list">@(ability.Ability.Name)</li>
+                    }
+                </ul>
+            </div>
+            <div class="moves-section">
+                Appears on:
+                @for (int i = 0; i < pokemon.GameIndicies.Count; i++)
+                {
+                    var game = pokemon.GameIndicies[i];
+                    //<li class="move-list @hiddenClass">Pokemon @(game.Version.Name)</li>
+                }
+                <ul class="move-list">
+                    @foreach (var game in pokemon.GameIndicies)
+                    {
+                        <li class="move-list">Pokemon @(game.Version.Name)</li>
+                    }
+                </ul>
+            </div>
+            <div class="moves-section">
+                <ul class="move-list">
+                    Moves:
+                    @foreach (var type in pokemon.Moves)
+                    {
+                        <li class="move-list">@(type.Move.Name)</li>
+                    }
+                </ul>
+            </div>
         </div>
     </div>
 </div>
