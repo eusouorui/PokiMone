@@ -3,7 +3,6 @@
 @using PokiMone.ExternalResources;
 
 
-
 <PageTitle>@pokemon.Name</PageTitle>
 
 <h3></h3>
@@ -25,8 +24,8 @@
                 <p><span class="@("type-badge "+type.Type.Name)">@(type.Type.Name)</span></p>
             }
             <div class="moves-section">
+                Stats:<br>
                 <ul class="move-list">
-                    Stats:
                     @foreach (var stat in pokemon.Stats)
                     {
                         <li class="move-list">@(stat.Stat.Name) -> <span><strong>@(stat.BaseStat)</strong></span></li>
@@ -84,7 +83,7 @@
 
 <style>
 .pokemon-card {
-    max-width: 400px;
+    width: 500px;
     border: 1px solid #ccc;
     border-radius: 8px;
     padding: 1rem;
