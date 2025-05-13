@@ -51,14 +51,28 @@
                 </ul>
             </div>
             <div class="moves-section">
-                <p><strong>Moves:</strong></p>
+                <button class="toggle-button" onclick="toggleView()"><strong>Moves:</strong></button>
                 <table class="move-list" style="width:100%">
+                    @{
+                        int counter = 0;
+                    }
                     @foreach (var move in moves)
                     {
-                        <tr>
-                            <td style="width:85%">@move.Name</td>
-                            <td style="text-align:center" class="@("type-badge " + move.Type.Name)"> @move.Type.Name</td>
-                        </tr>
+                        if(counter > 5)
+                        {
+                            <tr hidden>
+                                <td style="width:85%">@move.Name</td>
+                                <td style="text-align:center" class="@("type-badge " + move.Type.Name)"> @move.Type.Name</td>
+                            </tr>
+                        }
+                        else // Change this logic, I just left it like this cuz there's more important stuff to do rn...
+                        {
+                            <tr>
+                                <td style="width:85%">@move.Name</td>
+                                <td style="text-align:center" class="@("type-badge " + move.Type.Name)"> @move.Type.Name</td>
+                            </tr>
+                        }
+                        counter++;
                     }
                 </table>
             </div>
@@ -93,3 +107,8 @@
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 </style>
+<script>
+    toggleView = () => {
+        
+    }
+</script>

@@ -229,6 +229,40 @@ h1:focus {
     .type-badge.fairy {
         background: #EE99AC;
     }
+    /* Normal - Grayish */
+    .type-badge.normal {
+        background-color: #A8A77A;
+    }
+
+    /* Ghost - Purple */
+    .type-badge.ghost {
+        background-color: #735797;
+    }
+
+    /* Dragon - Deep Blue */
+    .type-badge.dragon {
+        background-color: #6F35FC;
+    }
+
+    /* Bug - Greenish Yellow */
+    .type-badge.bug {
+        background-color: #A6B91A;
+    }
+
+    /* Dark - Dark Brown/Gray */
+    .type-badge.dark {
+        background-color: #705746;
+    }
+
+    .type-badge.flying {
+        background-color: #A98FF3;
+    }
+
+    .type-badge:hover {
+        filter: brightness(1.2);
+        cursor: default;
+    }
+
 
 /* Stats */
 .stats {
@@ -331,3 +365,25 @@ h1:focus {
         flex-direction: column;
     }
 }
+
+.toggle-button {
+    background-color: #1b6ec2;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-weight: bold;
+    font-size: 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 10px;
+}
+
+    .toggle-button:hover {
+        background-color: #155a9c;
+    }
+
+    .toggle-button:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(37, 140, 251, 0.5);
+    }
