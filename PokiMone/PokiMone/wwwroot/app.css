@@ -308,11 +308,15 @@ h1:focus {
 }
 
     .move-list li {
-        display: inline;
         padding: 6px 0;
         border-bottom: 1px solid #eee;
         border-right: 1px solid #eee;
         border-left: 1px solid #eee;
+        color: black;
+    }
+    .move-list td {
+        padding: 6px 0;
+        border-bottom: 1px solid #eee;
         color: black;
     }
 

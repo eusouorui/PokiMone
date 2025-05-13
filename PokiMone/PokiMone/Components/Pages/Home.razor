@@ -28,7 +28,7 @@
                         <div class="card-footer">
                             @foreach (var type in Pokemon.Types)
                             {
-                                <spanclass ="type">@type.Type.Name</spanclass>
+                                <span>@type.Type.Name</span>
                             }
                         </div>
                     </div>
@@ -42,8 +42,7 @@
 
     public PokeApiData apiLayer = new PokeApiData();
 
-    public List<Pokemon>? PokemonList;
-
+    public List<Pokemon>? PokemonList = new List<Pokemon>();
     public int TotalPokemon = 151;
 
     public async Task<List<Pokemon>> GetPokemonList()

@@ -33,5 +33,18 @@ namespace PokiMone.ExternalResources
 
             return pokemonList;
         }
+
+        public async Task<List<Move>> GetPokemonMoveTypes(Pokemon pokemon)
+        {
+            List<Move> moves = [];
+
+            foreach (var move in pokemon.Moves)
+            {
+
+                moves.Add(await pokeClient.GetResourceAsync<Move>(move.Move.Name));
+            }
+
+            return moves.Count != 0 ? moves : [];
+        }
     }
 }
