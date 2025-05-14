@@ -2,6 +2,8 @@
 @using Microsoft.AspNetCore.Mvc
 @using PokeApiNet
 @using PokiMone.ExternalResources;
+@using PokiMone.Services
+@inject CacheService _cache
 
 <PageTitle>PokiMone</PageTitle>
 
@@ -38,12 +40,12 @@
     </tr>
 </table>
 
-@code {
+@code
+{
+    readonly PokeApiData apiLayer = new PokeApiData();
+    List<Pokemon>? PokemonList = new List<Pokemon>();
 
-    public PokeApiData apiLayer = new PokeApiData();
-
-    public List<Pokemon>? PokemonList = new List<Pokemon>();
-    public int TotalPokemon = 151;
+    public int TotalPokemon = 151; //not sure why this is still here, might remove soon
 
     public async Task<List<Pokemon>> GetPokemonList()
     {
@@ -55,5 +57,9 @@
     protected override async Task OnInitializedAsync()
     {
         PokemonList = await GetPokemonList();
+    }
+    protected override async void OnInitialized()
+    {
+        _ = _cache.EnsureMovesLoadedAsync();
     }
 }

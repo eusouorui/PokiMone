@@ -34,17 +34,42 @@ namespace PokiMone.ExternalResources
             return pokemonList;
         }
 
-        public async Task<List<Move>> GetPokemonMoveTypes(Pokemon pokemon)
+        public async Task<List<Move>> GetAllMovesAsync()
         {
-            List<Move> moves = [];
+            List<string> moveNameList = [];
 
-            foreach (var move in pokemon.Moves)
+            await foreach (var move in pokeClient.GetAllNamedResourcesAsync<Move>())
             {
-
-                moves.Add(await pokeClient.GetResourceAsync<Move>(move.Move.Name));
+                moveNameList.Add(move.Name);
             }
 
-            return moves.Count != 0 ? moves : [];
+            List<Move> moveList = [];
+            foreach (var moveName in moveNameList)
+            {
+                moveList.Add(await pokeClient.GetResourceAsync<Move>(moveName));
+            }
+
+            return moveList;
+        }
+
+        public async Task<List<Move>> GetPokemonMoveTypes(Pokemon pokemon)
+        {
+            var throttler = new SemaphoreSlim(30); // Limit to 30 concurrent requests
+
+            var moveTasks = pokemon.Moves.Select(async m =>
+            {
+                await throttler.WaitAsync();
+                try
+                {
+                    return await pokeClient.GetResourceAsync<Move>(m.Move);
+                }
+                finally
+                {
+                    throttler.Release();
+                }
+            });
+
+            return [.. await Task.WhenAll(moveTasks)];
         }
     }
 }

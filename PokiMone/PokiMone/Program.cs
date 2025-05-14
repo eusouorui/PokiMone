@@ -1,10 +1,16 @@
 using PokiMone.Components;
+using PokiMone.ExternalResources;
+using PokiMone.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+builder.Services.AddSingleton<PokeApiData>();
+builder.Services.AddSingleton<CacheService>();
+
 
 var app = builder.Build();
 

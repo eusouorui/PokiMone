@@ -1,7 +1,8 @@
 ﻿@page "/detail/{pokemonName}"
 @using PokeApiNet
 @using PokiMone.ExternalResources;
-
+@using PokiMone.Services
+@inject CacheService _cache
 
 <PageTitle>@pokemon.Name</PageTitle>
 
@@ -58,7 +59,7 @@
                     }
                     @foreach (var move in moves)
                     {
-                        if(counter > 5)
+                        if(counter < 0)
                         {
                             <tr hidden>
                                 <td style="width:85%">@move.Name</td>
@@ -83,20 +84,22 @@
 @code
 {
     [Parameter]
-    public string pokemonName { get; set; }
-    public PokeApiData apiLayer = new PokeApiData();
+    public required string pokemonName { get; set; }
+    readonly PokeApiData apiLayer = new PokeApiData();
     public Pokemon pokemon;
-    public List<Move> moves = new();
+    IEnumerable<Move> moves = Enumerable.Empty<Move>();
 
     protected override async Task OnInitializedAsync()
     {
         pokemon = await apiLayer.GetPokemonDataAsync(pokemonName);
-    
-        if(pokemon != null)
-            moves = await apiLayer.GetPokemonMoveTypes(pokemon);
+
+        if (pokemon == null)
+            return;
+        
+        moves = await _cache.GetMovesByPokemonAsync(pokemon);
     }
 }
-
+// move this
 <style>
 .pokemon-card {
     width: 500px;
@@ -107,8 +110,3 @@
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 </style>
-<script>
-    toggleView = () => {
-        
-    }
-</script>
